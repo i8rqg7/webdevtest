@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webdevtest (Scientific Games)</title>
+    <link href="css/webdevtest.css" rel="stylesheet">
+
+    <!-- Running Vue.js in development mode -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
+
+    <!-- Running Vue.js in production mode -->
+     <script src="js/vue.min.js"></script>
+
+    <!-- Using Moment.js -->
+    <script src="js/moment.min.js"></script>
+
+</head>
+<body>
+<noscript>Your browser does not support JavaScript! Please enable it.</noscript>
+
+<div id="webdevtest-app" style="display: none;" v-bind:style="{ display: 'inherit' }">
+
+    <!-- Promotion List section -->
+    <section v-if="!promo" id="promotion-list" >
+        <div class="promotion-list-item" v-for="(promotion, index) in promotion_objects">
+            <a :href="'index.html?promo=promo' + ('0' + (1+index)).slice(-2)">
+                <img :src="promotion.promo_image_url" :alt="promotion.promotion_name" :title="promotion.promotion_name">
+            </a>
+            <h1 class="promotion-link"><a :href="'index.html?promo=promo' + ('0' + (1+index)).slice(-2)">{{ promotion.promotion_name }}</a></h1>
+            <p class="promotion-summary">{{ promotion.summary }}</p>
+            <p class="next-draving">Next Drawing Date: {{ nextDrawingDate(promotion.drawings) }}</p>
+        </div>
+    </section>
+    
+    <!-- Promotion View section -->
+    <section v-if="promo" id="promotion-view" class="promotion-bg">
+        <div class="promotion-view-item">
+            <p class="next-entry-deadline hide-md">The Next Entry Deadline is <br>{{ nextEntryDeadline(promo.drawings) }}</p>
+
+            <img :src="promo.promo_image_url" :alt="promo.promotion_name" :title="promo.promotion_name" class="center"> 
+            <div class="promotion-view-item-info">
+                <h1 class="promotion-name hide-xs">{{ promo.promotion_name }}</h1>
+                <p class="summary-text">{{ promo.summary }}</p>
+                
+                <!-- Drawing Schedule section -->
+                <h2 class="draving-schedule text-center">Drawing Schedule</h2>
+                
+                <!-- Drawing Schedule table | Medium (wide) view -->            
+                <table id="draving-dates-table-md" class="table-md hide-xs">
+                    <thead>
+                        <tr>
+                            <td>Prize</td>
+                            <td>Entry Deadline</td>
+                            <td>Drawing Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="drawing in promo.drawings">  
+                            <td>{{ drawing.prize.replace(' Cash Prize','') }}</td>
+                            <td>{{ moment(drawing.entry_deadline).format('dddd, MMMM D[,] YYYY') }}</td>
+                            <td>{{ moment(drawing.drawing_date).format('dddd, MMMM D[,] YYYY') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Drawing Schedule table | Mobile view -->                 
+                <table id="draving-dates-table-xs" class="table-xs hide-md">
+                        <tbody v-for="drawing in promo.drawings">
+                            <tr>  
+                                <td>Prize</td>
+                                <td>{{ drawing.prize.replace(' Cash Prize','') }}</td>
+                            </tr>
+                            <tr>  
+                                <td>Entry Deadline</td>
+                                <td>{{ moment(drawing.drawing_date).format('dddd, MMMM D[,] YYYY') }}</td>
+                            </tr>
+                            <tr>  
+                                <td>Drawing Date</td>
+                                <td>{{ moment(drawing.entry_deadline).format('dddd, MMMM D[,] YYYY') }}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+
+                <!-- Entries section -->
+                <p>{{ promo.entry_info }}</p>
+                <h2 class="total-tickets-entered text-center">Your Total Tickets Entered: {{ promo.entries.length }}</h2>
+                <p class="entries-locked text-center">All entries are locked in at the time they are submitted and cannot be deleted.</p>
+
+                <!-- Entries table | Medium (wide) view --> 
+                <table id="entries-table-md" class="table-md hide-xs">
+                    <thead>
+                        <tr>
+                            <td width="35%">Entry Number</td>
+                            <td>Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="entry in promo.entries">  
+                            <td>{{ entry.entry_number }}</td>
+                            <td>{{ moment(entry.date).format('dddd, MMMM D[,] YYYY') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Entries table | Mobile view -->    
+                <table id="entries-table-xs" class="table-xs hide-md">
+                    <tbody v-for="entry in promo.entries">
+                        <tr>  
+                            <td>Entry Number</td>
+                            <td>{{ entry.entry_number }}</td>
+                        </tr>
+                        <tr>  
+                            <td>Date</td>
+                            <td>{{ moment(entry.date).format('dddd, MMMM D[,] YYYY') }}</td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </div>           
+
+        </div>
+    </section>
+
+</div>
+
+<!-- Application logic -->
+<script src="js/main.js"></script>
+
+</body>
+</html>

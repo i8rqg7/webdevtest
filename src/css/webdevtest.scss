@@ -1,0 +1,225 @@
+/*
+* Project: Webdevtest (Scientific Games)
+* Author: Bálint Szabó
+*/
+
+$wide-limit: 480px;     /*  @info: Wide view is enabled above 480px */
+$banner-width: 677px;   /*  @info: Banners have 677px width */
+
+$colors: (
+    link: #036dbe, text: #444444, warning: #b20000, shadow: #222222, section: #000000,
+    bg_gradient_from: #cccccc, bg_gradient_to: #ffffff
+);
+
+$table-colors: ( 
+    md-bg-thead: #666666,   md-bg-tbody: #cccccc,   md-color-thead: #ffffff, 
+    xs-bg-tbody:#e2e2e2,    xs-border-tr:#e6e6e6,   xs-border-tr-last:#c7c7c7
+);
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    max-width: $banner-width;
+    -webkit-filter: drop-shadow(5px 5px 5px map-get($colors, shadow));
+    filter: drop-shadow(5px 5px 5px map-get($colors, shadow));
+}
+
+a:link, a:visited {
+    color: map-get($colors, link);
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    color: map-get($colors, shadow);
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@media only screen and (min-width: $wide-limit+1) {
+    .hide-md {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: $wide-limit) {
+    .hide-xs {
+        display: none;
+    }
+}
+
+
+/*
+* Promotion List
+*/
+
+#promotion-list {
+    padding: 1rem;
+    max-width: $banner-width;  
+    margin:auto;
+    
+    .promotion-list-item {
+        margin-top: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .promotion-link {
+        font-size: 24px;
+        font-weight: bold;
+        color: map-get($colors, link);
+    }
+    
+    .promotion-summary, .next-draving {
+        font-size: 14px;
+        color: map-get($colors, text);
+    }
+}
+
+
+/*
+* Promotion View
+*/
+
+#promotion-view {
+    padding: 1rem;
+
+    .promotion-view-item {
+        max-width: 750px;   
+        margin:auto;
+    }
+
+    .draving-schedule, .total-tickets-entered {
+        font-size: 18px;
+        color: map-get($colors, section);
+    }
+    
+    .summary-text, .promotion-view-item {
+        font-size: 14px;
+        line-height: 24px;
+        color: map-get($colors, text);
+    }
+
+    .promotion-view-item img {
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .promotion-view-item .summary-text {
+        margin-bottom: 2.5rem;
+    }
+    
+    .next-entry-deadline {
+        text-align: center;
+        line-height: 1.1;
+    }
+
+
+    // Table style | Medium (wide) view 
+    .table-md {
+        margin: auto;
+        width: 100%;
+        border-spacing: 0.33rem;
+        text-align: center;
+    
+        thead {
+            background-color: map-get($table-colors, md-bg-thead);
+            color: map-get($table-colors, md-color-thead);;
+       
+            tr {
+                text-transform: uppercase;
+                font-weight: bolder;
+            }
+        }
+    
+        tbody {
+            background-color: map-get($table-colors, md-bg-tbody);
+        }
+    
+        tr td {
+            padding: 0.45rem;
+        }
+    }
+
+    // Table style | Mobile view
+    .table-xs {
+        margin: 0;
+        width: 100%;
+        border-spacing: 0px;
+        
+        tbody {
+            
+            tr:last-child td {
+                border-bottom: 2px solid map-get($table-colors, xs-border-tr-last);
+            }
+    
+            tr td {
+                padding: 0.45rem;
+                height: 4rem;
+                vertical-align: top;
+                background-color: map-get($table-colors, xs-bg-tbody);
+                border-bottom: 1px solid map-get($table-colors, xs-border-tr);
+            }
+        
+            tr td:first-child {
+                font-weight: 800;
+                text-transform: uppercase;
+                vertical-align: top;
+            }
+                
+        }
+    }
+
+    @media only screen and (max-width: $wide-limit) {
+        
+        .promotion-view-item-info {
+            width: 90%;
+            margin: auto;
+        }
+        .next-entry-deadline {
+            font-size: 24px;
+            font-weight: bold;
+            color: map-get($colors, warning);
+        }
+    
+        .entries-locked {
+            color: map-get($colors, warning);
+        }   
+    }
+}
+
+
+@media only screen and (min-width: $wide-limit+1) {
+    .promotion-bg {
+        background-image: linear-gradient(map-get($colors, bg_gradient_from), map-get($colors, bg_gradient_to));
+    }
+}
+
+/*
+* Additional design
+*/
+
+@media only screen and (max-width: 480px) {
+    
+    .promotion-link, .promotion-name {
+        font-size: 18px;
+    }
+ 
+}
+
