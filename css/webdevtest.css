@@ -55,9 +55,14 @@ a:hover, a:active {
 * Promotion List
 */
 #promotion-list {
-  padding: 1rem;
+  padding-top: 1rem;
   max-width: 677px;
   margin: auto;
+}
+@media only screen and (max-width: 677px) {
+  #promotion-list {
+    padding: 1rem;
+  }
 }
 #promotion-list .promotion-list-item {
   margin-top: 1.5rem;
